@@ -154,6 +154,6 @@ export const jsonParseWithComments = ( file:FsReadFileSyncParams, rules?: Commen
 
 	const jsonStringified = dataJson.join('\n');
 	// You should know right now what I want to check:
-  console.log(jsonStringified)
+  //console.log(jsonStringified)
 	return JSON.parse(jsonStringified);
 }
