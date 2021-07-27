@@ -184,10 +184,10 @@ export async function tray (windowName: BrowserWindow, childCSP: string): Promis
 			click: createGithubIssue
 		},
 		{ type: 'separator' },
-		{
+		/*{
 			label: strings.help.settings,
 			click: changesettings
-		},
+		},*/
 		{
 			label: strings.tray.toggle,
 			click: function() {
