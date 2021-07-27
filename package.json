@@ -35,7 +35,7 @@
     "url": "https://github.com/SpacingBat3"
   },
   "contrib": {
-    "auth": [ "oxmc" ]
+    "authors": [ "oxmc" ]
   },
   "license": "MIT",
   "repository": {
