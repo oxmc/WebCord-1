@@ -264,7 +264,7 @@ function createWindow(): BrowserWindow {
             return callback(false);
         });
     }
-    SplashWindow.loadFile("../splash.html")
+    SplashWindow.loadFile("sources/splash.html")
     SplashWindow.show();
     win.hide();
     win.loadURL(appInfo.URL, { userAgent: fakeUserAgent });
