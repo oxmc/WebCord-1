@@ -196,10 +196,11 @@ function createWindow(): BrowserWindow {
     //SplashWindow
     const SplashWindow = new BrowserWindow({
         title: app.getName(),
-        minWidth: appInfo.minWinWidth,
-        minHeight: appInfo.minWinHeight,
-        height: mainWindowState.height,
-        width: mainWindowState.width,
+        width: 350,
+        height: 350,
+        frame: false,
+        transparent: false,
+        center: true,
         backgroundColor: "#2F3136",
         icon: appInfo.icon,
         show: !startHidden,
