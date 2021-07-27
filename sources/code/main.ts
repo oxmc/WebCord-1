@@ -306,8 +306,10 @@ function createWindow(): BrowserWindow {
     // "Red dot" icon feature
 
     win.webContents.once('did-finish-load', () => {
-        win.show();
-        SplashWindow.close();
+        setTimeout(function () {
+          win.show();
+          SplashWindow.close();
+        }, 3000)
         win.webContents.on('page-favicon-updated', async (event,favicons) => {
             const t = await tray;
             if(!configData.disableTray) if(favicons[0] === discordFavicons.default || favicons[0] === discordFavicons.unread)
