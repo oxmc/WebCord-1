@@ -6,7 +6,7 @@ import { readFileSync, PathLike } from "fs";
 
 /**
  * Outputs a fancy log message in the (DevTools) console.
- * 
+ *
  * @param msg Message to log in the console.
  */
 
@@ -60,7 +60,7 @@ function getPackageJsonProperties():PackageJsonProperties {
 
 /**
  * An object containing some properties of `package.json` file.
- * 
+ *
  * To avoid leakage of some properties (like `scripts`) to the malicious code,
  * this object has limited number of properties.
  */
@@ -84,32 +84,32 @@ type FsReadFileSyncParams = {
  * to regular JavaScript object – currently `JSON.parse()` function
  * should treat comments as syntax errors, as they are not a part
  * of JSON standard.
- * 
+ *
  * @param file Object containing `path` to file and optionally its `encoding`.
- * 
+ *
  * @param rules Array of `CommentRuleObject` objects that will be included to `commentRules`.
- * 
+ *
  * @returns Parsed JavaScript object.
- * 
+ *
  * @todo Publish JSONC support as separate module for other projects' use.
- * 
+ *
  * @example
- * 
+ *
  * // Read standard JSON file and save its content as string:
- * 
+ *
  * const myRegularJson = readFileSync('/path/to/file.json').toString();
- * 
+ *
  * // Read 'JSON with comments' file and save its content as string:
- * 
+ *
  * const myJsonWithComments = readFileSync('/path/to/fileWithComments.json').toString();
- * 
+ *
  * // Parse both JSON files:
- * 
+ *
  * JSON.parse(myRegularJson) // returns object
  * JSON.parse(myJsonWithComments) // syntax error!
  * jsonParseWithComments({path:'/path/to/fileWithComments.json'}) // returns object
  * jsonParseWithComments({path:'/path/to/file.json'}) // returns object
- * 
+ *
  */
 
 export const jsonParseWithComments = ( file:FsReadFileSyncParams, rules?: CommentRuleObject[] ): Record<string,unknown> => {
@@ -128,7 +128,7 @@ export const jsonParseWithComments = ( file:FsReadFileSyncParams, rules?: Commen
 		{ rule: /\/\*.*/ , multiline: "start" },  // Start of multiline comments: `/* example`
 		{ rule: /.*\*\/$/, multiline: "end" },    // End of multiline comments: `example */`
 	]
-	
+
 	// Allow for additional comment rules
 	if(rules) commentRules.concat(rules)
 
@@ -140,7 +140,7 @@ export const jsonParseWithComments = ( file:FsReadFileSyncParams, rules?: Commen
 		/** Whenever currently tested line might be in multiline comment */
 		let inComment:boolean = inCommentNext
 
-		let newLine = line;		
+		let newLine = line;
 
 		for (const ruleObject of commentRules) if(!isJson) {
 			if(newLine.match(ruleObject.rule) && ruleObject.multiline === 'start') inCommentNext = true;
@@ -148,10 +148,12 @@ export const jsonParseWithComments = ( file:FsReadFileSyncParams, rules?: Commen
 				inComment = inCommentNext = false;
 			newLine = newLine.replace(ruleObject.rule,'');
 		}
-		
+
 		if(!inComment) dataJson.push(newLine);
 	}
 
 	const jsonStringified = dataJson.join('\n');
+	// You should know right now what I want to check:
+  console.log(jsonStringified)
 	return JSON.parse(jsonStringified);
 }
