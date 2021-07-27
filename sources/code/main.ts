@@ -96,7 +96,7 @@ const chromiumVersion: string = process.versions.chrome;
  * if you're improving the code of this application
  */
 
-let appContributors: Array<string> = [appAuthor];
+let appContributors: Array<string> = [appAuthor + packageJson.contrib.auth];
 
 // Hence GTK allows for tags there on Linux, generate links to website/email
 if (process.platform === "linux") {
