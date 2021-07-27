@@ -34,9 +34,7 @@
     "email": "git@spacingbat3.anonaddy.com",
     "url": "https://github.com/SpacingBat3"
   },
-  "contrib": {
-    "authors": [ "oxmc" ]
-  },
+  "contributors": [ "oxmc" ],
   "license": "MIT",
   "repository": {
     "type": "git",
