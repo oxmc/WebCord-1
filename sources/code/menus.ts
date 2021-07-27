@@ -185,10 +185,14 @@ export async function tray (windowName: BrowserWindow, childCSP: string): Promis
 		},
 		{ type: 'separator' },
 		{
+			label: strings.help.settings,
+			click: changesettings
+		},
+		{
 			label: strings.tray.toggle,
-			click: function() { 
-				windowName.isVisible() ? windowName.hide() : windowName.show(); 
-			} 
+			click: function() {
+				windowName.isVisible() ? windowName.hide() : windowName.show();
+			}
 		},
 		{ label: strings.tray.quit,
 			click: function(){
