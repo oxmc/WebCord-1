@@ -97,7 +97,7 @@ const chromiumVersion: string = process.versions.chrome;
  */
 
  //console.log(packageJson)
- console.log(packageJson.contributors)
+ //console.log(packageJson.contributors)
 
 //let appContributors: Array<string> = [appAuthor + packageJson.contrib.authors];
 let appContributors: Array<string> = [ appAuthor, ...packageJson.contributors ];
