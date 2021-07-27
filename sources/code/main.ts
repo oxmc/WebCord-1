@@ -5,7 +5,7 @@
 /*
  * Handle source maps.
  * This module will provide more readable crash output.
- * 
+ *
  * It is good idea to load it first to maximize the chance
  * it will load before Electron will print any error.
  */
@@ -193,6 +193,24 @@ function createWindow(): BrowserWindow {
         }
     });
 
+    //SplashWindow
+    const SplashWindow = new BrowserWindow({
+        title: app.getName(),
+        minWidth: appInfo.minWinWidth,
+        minHeight: appInfo.minWinHeight,
+        height: mainWindowState.height,
+        width: mainWindowState.width,
+        backgroundColor: "#2F3136",
+        icon: appInfo.icon,
+        show: !startHidden,
+        webPreferences: {
+            enableRemoteModule: false,
+            nodeIntegration: false, // Won't work with the true value.
+            devTools: true, // Too usefull to be blocked.
+            contextIsolation: false // Disabled because of the capturer.
+        }
+    });
+
     // Preload scripts:
 
     win.webContents.session.setPreloads([
@@ -246,6 +264,9 @@ function createWindow(): BrowserWindow {
             return callback(false);
         });
     }
+    SplashWindow.loadFile("splash.html")
+    SplashWindow.show();
+    win.hide();
     win.loadURL(appInfo.URL, { userAgent: fakeUserAgent });
     win.setAutoHideMenuBar(configData.hideMenuBar);
     win.setMenuBarVisibility(!configData.hideMenuBar);
@@ -262,11 +283,11 @@ function createWindow(): BrowserWindow {
         win.webContents.setWindowOpenHandler((details) => {
             /**
              * Allowed protocol list.
-             * 
+             *
              * For security reasons, `shell.openExternal()` should not be used for any type
              * of the link, as this may allow potential attackers to compromise host or even
              * execute arbitary commands.
-             * 
+             *
              * See:
              * https://www.electronjs.org/docs/tutorial/security#14-do-not-use-openexternal-with-untrusted-content
              */
@@ -284,6 +305,8 @@ function createWindow(): BrowserWindow {
     // "Red dot" icon feature
 
     win.webContents.once('did-finish-load', () => {
+        win.show();
+        SplashWindow.close();
         win.webContents.on('page-favicon-updated', async (event,favicons) => {
             const t = await tray;
             if(!configData.disableTray) if(favicons[0] === discordFavicons.default || favicons[0] === discordFavicons.unread)
@@ -367,6 +390,7 @@ function windowStateKeeper(windowName: string) {
 }
 
 function main(): void {
+    /* MainFunc */
     winWidth = appInfo.minWinWidth + (screen.getPrimaryDisplay().workAreaSize.width / 3);
     winHeight = appInfo.minWinHeight + (screen.getPrimaryDisplay().workAreaSize.height / 3);
     l10nStrings = new TranslatedStrings();
